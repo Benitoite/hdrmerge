@@ -24,7 +24,7 @@
 #include <QImage>
 #include <QPainter>
 #include <QFuture>
-#include <QtConcurrentRun>
+#include <QtConcurrent/QtConcurrent>
 #include <QApplication>
 #include <QBitmap>
 #include <QAction>
@@ -33,7 +33,8 @@ using namespace hdrmerge;
 
 
 PreviewWidget::PreviewWidget(ImageStack & s, QWidget * parent) : QWidget(parent), stack(s),
-width(0), height(0), flip(0), addPixels(false), rmPixels(false), layer(0), radius(5), expMult(1.0) {
+width(0), height(0), flip(0), addPixels(false), rmPixels(false), layer(0), radius(5),
+mouseX(0), mouseY(0), expMult(1.0), cancelRender(false) {
     float g = 1.0f / 2.2f;
     for (int i = 0; i < 65536; i++) {
         gamma[i] = (int)std::floor(65536.0f * std::pow(i / 65536.0f, g)) >> 8;
@@ -136,7 +137,7 @@ QRgb PreviewWidget::rgb(int col, int row) const {
 
 void PreviewWidget::render(QRect zone) {
     if (!stack.size()) return;
-    zone = zone.intersect(QRect(0, 0, width, height));
+    zone = zone.intersected(QRect(0, 0, width, height));
     if (zone.isNull()) return;
     cancelRender = false;
     QImage image(zone.width(), zone.height(), QImage::Format_RGB32);
@@ -200,7 +201,7 @@ void PreviewWidget::mouseEvent(QMouseEvent * event, bool pressed) {
     rotate(rx, ry);
     if (rx >= 0 && rx < (int)stack.getWidth() && ry >= 0 && ry < (int)stack.getHeight())
         emit pixelUnderMouse(rx, ry);
-    if (event->buttons() & Qt::LeftButton && (addPixels || rmPixels)) {
+    if ((event->buttons() & Qt::LeftButton) && (addPixels || rmPixels)) {
         event->accept();
         if (pressed) {
             stack.getMask().startAction(addPixels, layer);

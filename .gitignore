@@ -2,9 +2,12 @@
 *.orig
 *.swp
 *~
+.cproject
+.project
 .directory
 .DS_Store
 .kde*
+.settings/
 Makefile
 Build*/
 build*/

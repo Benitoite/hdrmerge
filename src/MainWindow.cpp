@@ -25,10 +25,11 @@
 #include "MainWindow.hpp"
 #include <QApplication>
 #include <QFuture>
-#include <QtConcurrentRun>
+#include <QtConcurrent/QtConcurrent>
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QMenuBar>
 #include <QProgressDialog>
 #include <QSettings>
@@ -41,6 +42,7 @@
 #include "DraggableScrollArea.hpp"
 #include "DngPropertiesDialog.hpp"
 #include "LoadOptionsDialog.hpp"
+#include "FileSystem.hpp"
 using namespace std;
 using namespace hdrmerge;
 
@@ -72,7 +74,7 @@ MainWindow::MainWindow() : QMainWindow() {
     createMenus();
 
     setWindowTitle(tr("HDRMerge %1 - Raw image fusion").arg(HDRMERGE_VERSION_STRING));
-    setWindowIcon(QIcon(":/images/icon.png"));
+    setWindowIcon(QIcon(":/icon.png"));
 
     QSettings settings;
     restoreGeometry(settings.value("windowGeometry").toByteArray());
@@ -308,7 +310,7 @@ void MainWindow::createLayerSelector() {
             QAction * action = new QAction(QIcon(getColorIcon(i)), QString::number(i), layerSelectorGroup);
             action->setCheckable(true);
             double logExp = logLeastExp - std::log2(images.getImage(i - 1).getRelativeExposure());
-            action->setToolTip(QString("+%1 EV").arg(logExp, 0, 'f', 2));
+            action->setToolTip(QString("%1: +%2 EV").arg(QFileInfo(images.getImage(i - 1).getFilename()).baseName()).arg(logExp, 0, 'f', 2));
             if (i < 10)
                 action->setShortcut(Qt::Key_0 + i);
             else if (i == 10)
@@ -325,6 +327,7 @@ void MainWindow::createLayerSelector() {
         lastLayer->setLayout(new QHBoxLayout());
         QLabel * lastIcon = new QLabel(lastLayer);
         lastIcon->setPixmap(getColorIcon(numImages));
+        lastIcon->setToolTip(QString("%1: +0 EV").arg(QFileInfo(images.getImage(numImages - 1).getFilename()).baseName()));
         lastLayer->layout()->addWidget(lastIcon);
         lastLayer->layout()->addWidget(new QLabel(QString::number(numImages)));
         //lastLayer->setMinimumHeight(layerSelector->widgetForAction(firstAction)->height());
@@ -344,14 +347,13 @@ void MainWindow::saveResult() {
         }
 
         QFileDialog saveDialog(this, tr("Save DNG file"), name, tr("Digital Negatives (*.dng)"));
+        saveDialog.setOptions(QFileDialog::DontUseNativeDialog);
         saveDialog.setAcceptMode(QFileDialog::AcceptSave);
         saveDialog.setFileMode(QFileDialog::AnyFile);
         saveDialog.setConfirmOverwrite(true);
-        QList<QUrl> urls, urlsBak;
-        urlsBak = saveDialog.sidebarUrls();
-        urls << urlsBak << QUrl::fromLocalFile(io.getInputPath());
+
+        QList<QUrl> urls = getStdUrls(io.getInputPath());
         saveDialog.setSidebarUrls(urls);
-        saveDialog.setOptions(QFileDialog::DontUseNativeDialog);
 
         if (saveDialog.exec()) {
             QString file = saveDialog.selectedFiles().front();
@@ -372,7 +374,6 @@ void MainWindow::saveResult() {
                     QApplication::instance()->processEvents(QEventLoop::ExcludeUserInputEvents);
             }
         }
-        saveDialog.setSidebarUrls(urlsBak);
     }
     setToolFromKey();
 }
@@ -392,7 +393,7 @@ void MainWindow::layerSelected(QAction * action) {
 
 void MainWindow::setToolFromKey() {
     Qt::KeyboardModifiers mods = QApplication::queryKeyboardModifiers();
-    if (mods & Qt::ShiftModifier && addGhostAction->isEnabled()) addGhostAction->setChecked(true);
-    else if (mods & Qt::ControlModifier && rmGhostAction->isEnabled()) rmGhostAction->setChecked(true);
+    if ((mods & Qt::ShiftModifier) && addGhostAction->isEnabled() && !previewArea->isDragging()) addGhostAction->setChecked(true);
+    else if ((mods & Qt::ControlModifier) && rmGhostAction->isEnabled() && !previewArea->isDragging()) rmGhostAction->setChecked(true);
     else lastTool->setChecked(true);
 }

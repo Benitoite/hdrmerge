@@ -195,7 +195,18 @@ void RawParameters::fromLibRaw(LibRaw & rawData) {
     cdesc = r.idata.cdesc;
     max = r.color.maximum;
     black = r.color.black;
-    copy_n(r.color.cblack, 4, cblack);
+    if(r.color.cblack[4] * r.color.cblack[5] == 0) {
+        copy_n(r.color.cblack, 4, cblack);
+    } else if (r.color.cblack[4] * r.color.cblack[5] == 4) {
+        for (int c = 0; c < 4; c++) {
+            cblack[FC(c / 2, c % 2)] = r.color.cblack[6 + c / 2 % r.color.cblack[4] * r.color.cblack[5] + c % 2 % r.color.cblack[5]];
+        }
+    }
+    if(r.idata.filters == 9) { //xtrans
+        for (int c = 0; c < 4; c++) {
+            cblack[c] = r.color.cblack[6];
+        }
+    }
     adjustBlack();
     copy_n(r.color.pre_mul, 4, preMul);
     copy_n(r.color.cam_mul, 4, camMul);
@@ -216,7 +227,7 @@ void RawParameters::fromLibRaw(LibRaw & rawData) {
     description = r.other.desc;
     QDateTime dateTimeTmp = QDateTime::fromTime_t(r.other.timestamp);
     QString dateTimeTmpText = dateTimeTmp.toString("yyyy:MM:dd hh:mm:ss");
-    dateTime = dateTimeTmpText.toAscii().constData();
+    dateTime = dateTimeTmpText.toLatin1().constData();
     flip = r.sizes.flip;
     switch ((flip + 3600) % 360) {
         case 270: flip = 5; break;

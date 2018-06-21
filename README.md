@@ -21,6 +21,8 @@ Once the preview is satisfactory, the Save HDR option of the File menu generates
 
 The program can also be run without GUI, in batch mode. This is accomplished either by providing an output file name with the "-o" switch, or by generating an automatic one with the "-a" switch. Other switches control the output parameters, refer to the output of the "--help" switch. macOS users may need to change their current working directory to the one which contains the executable in order to run it in CLI mode.
 
+HDRMerge merges raw files to produce an HDR image in DNG format. Once you have obtained your image from HDRMerge, you need to further process it in an application that supports HDR images in the DNG format, such as [RawTherapee](https://rawtherapee.com) or [darktable](https://darktable.org). 
+
 ## Licence
 HDRMerge is released under the GNU General Public License v3.0.
 See the file `LICENSE`.
@@ -34,6 +36,15 @@ Report bugs by creating a new issue on our GitHub page:
 https://github.com/jcelaya/hdrmerge/issues
 
 ## Changelog:
+- v1.0 (not released yet)
+  - Allow user to specify custom white level in case of artifacts with automatically computed white level from LibRaw.
+  - Added support for raw files from Fufjifilm X-Trans sensors.
+  - Speed optimization.
+  - Assume aperture of f/8 if the aperture is invalid.
+  - Migrated from Qt4 to Qt5.
+  - Enable compilation in Windows.
+  - Documentation updated.
+  - Repository tree restructured.
 - v0.5.0:
   - First Mac OS X build! Thanks to Philip Ries for his help.
   - Several bug fixes:
