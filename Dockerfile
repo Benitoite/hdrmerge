@@ -3,9 +3,8 @@ CMD echo "This is a test..." && ~/programs/hdrmerge/hdrmerge && echo "...THATS A
 RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash
 
 RUN mkdir ~/programs && cd ~/programs
-
-RUN wget -O ~/programs/alglib.zip http://www.alglib.net/translator/re/alglib-3.14.0.cpp.gpl.zip
-RUN unzip ~/programs/alglib.zip -d ./alglib
+RUN mkdir alglib
+RUN wget -O ~/programs/alglib.zip http://www.alglib.net/translator/re/alglib-3.14.0.cpp.gpl.zip && unzip ~/programs/alglib.zip -d ./alglib
 RUN mkdir /usr/local/include && mkdir /usr/local/include/alglib
 RUN cp -r ~/programs/alglib/cpp/* /usr/local/include/alglib/.
 
