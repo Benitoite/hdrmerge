@@ -1,7 +1,6 @@
 FROM alpine:latest
 CMD echo "This is a test." && ~/programs/hdrmerge/hdrmerge
-RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev
-RUN apk add --no-cache qt5-qtbase-dev zlib-dev unzip wget
+RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash
 
 RUN mkdir ~/programs && cd ~/programs
 
