@@ -46,12 +46,3 @@ index 57f3bda..4bbff9d 100644
          src/main.cpp
          src/Launcher.cpp
          data/resources.qrc
-@@ -327,7 +328,7 @@ if(WIN32)
-         message(STATUS "NSIS not found")
-     endif()
- elseif(APPLE)
--    set_source_files_properties(images/icon.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-+    set_source_files_properties(data/images/icon.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-     install(TARGETS hdrmerge BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR})
- else()
-     if(NOT DEFINED CMAKE_INSTALL_BINDIR)
