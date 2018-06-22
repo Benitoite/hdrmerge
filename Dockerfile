@@ -8,7 +8,7 @@ RUN cd ~/programs && git clone https://github.com/jcelaya/hdrmerge.git ~/program
 RUN cd ~/programs/code-hdrmerge && wget -O docker-cmake.diff  https://raw.githubusercontent.com/Benitoite/hdrmerge/dock1/docker-cmake.diff
 RUN cd ~/programs/code-hdrmerge && pwd && ls -la
 RUN patch ~/programs/code-hdrmerge/CMakeLists.txt < ~/programs/code-hdrmerge/docker-cmake.diff
-RUN cd ~/programs/code-hdrmerge/build && cmake /root/programs/code-hdrmerge/. -DALGLIB_ROOT=~/programs/alglib/cpp  -DCMAKE_CXX_FLAGS="-std=c++11 -Wno-deprecated-declarations -Wno-unused-result -O3 -pipe" -DCMAKE_C_FLAGS="-O3 -pipe"  -DCMAKE_INSTALL_BINDIR:STRING="~/programs/hdrmerge" -DCMAKE_BUILD_TYPE=Release -DALGLIB_INCLUDES=~/programs/alglib/cpp -DALGLIB_LIBRARIES=~/programs/code-hdrmerge/build
+RUN cd ~/programs/code-hdrmerge/build && cmake /root/programs/code-hdrmerge -DALGLIB_ROOT=~/programs/alglib/cpp  -DCMAKE_CXX_FLAGS="-std=c++11 -Wno-deprecated-declarations -Wno-unused-result -O3 -pipe" -DCMAKE_C_FLAGS="-O3 -pipe"  -DCMAKE_INSTALL_BINDIR:STRING="~/programs/hdrmerge" -DCMAKE_BUILD_TYPE=Release -DALGLIB_INCLUDES=~/programs/alglib/cpp -DALGLIB_LIBRARIES=~/programs/code-hdrmerge/build
 RUN cd ~/programs/code-hdrmerge/build && make install
 
 CMD echo "This is a test..." && ~/programs/hdrmerge/hdrmerge && echo "...THATS ALL FOLKS!!!"
