@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash
+RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash patch
 
 RUN mkdir ~/programs && cd ~/programs
 RUN mkdir alglib
