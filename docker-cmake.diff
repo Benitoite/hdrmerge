@@ -1,0 +1,57 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 57f3bda..4bbff9d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -12,7 +12,7 @@ if(WIN32)
+     endif()
+ endif()
+ 
+-if(APPLE)
++if(UNIX)
+     if(NOT(ALGLIB_ROOT))
+         message(FATAL_ERROR "Passage of ALGLIB_ROOT to cmake failed. Download alglib and define its root directory in ALGLIB_ROOT")
+     else()
+@@ -51,7 +51,7 @@ find_package(OpenMP)
+ if(WIN32)
+     set(ALGLIB_INCLUDES ${ALGLIB_ROOT}/src)
+ else()
+-    find_package(Alglib REQUIRED)
++    set(ALGLIB_INCLUDES ${ALGLIB_ROOT}/src)
+ endif()
+ 
+ include_directories(
+@@ -167,7 +167,7 @@ if(WIN32)
+     )
+ endif()
+ 
+-if(APPLE)
++if(UNIX)
+     set(alglib_sources
+         ${ALGLIB_ROOT}/src/alglibinternal.cpp
+         ${ALGLIB_ROOT}/src/alglibmisc.cpp
+@@ -233,7 +233,7 @@ if(WIN32)
+     add_library(alglib-objects OBJECT ${alglib_sources})
+ endif()
+ 
+-if(APPLE)
++if(UNIX)
+     add_library(alglib-objects OBJECT ${alglib_sources})
+ endif()
+ 
+@@ -262,6 +262,7 @@ elseif(APPLE)
+     )
+ else()
+     add_executable(hdrmerge ${PLATFORM}
++        $<TARGET_OBJECTS:alglib-objects>
+         src/main.cpp
+         src/Launcher.cpp
+         data/resources.qrc
+@@ -327,7 +328,7 @@ if(WIN32)
+         message(STATUS "NSIS not found")
+     endif()
+ elseif(APPLE)
+-    set_source_files_properties(images/icon.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
++    set_source_files_properties(data/images/icon.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+     install(TARGETS hdrmerge BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR})
+ else()
+     if(NOT DEFINED CMAKE_INSTALL_BINDIR)
