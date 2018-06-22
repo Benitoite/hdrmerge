@@ -8,7 +8,7 @@ RUN wget -O alglib.zip http://www.alglib.net/translator/re/alglib-3.14.0.cpp.gpl
 
 RUN git clone https://github.com/jcelaya/hdrmerge.git ~/programs/code-hdrmerge && mkdir ~/programs/code-hdrmerge/build && cd ~/programs/code-hdrmerge/build
 RUN wget https://raw.githubusercontent.com/Benitoite/hdrmerge/dock1/docker-cmake.diff
-RUN patch -p0 < docker-cmake.diff
+RUN patch -p 1 < docker-cmake.diff
 RUN cmake /root/programs/code-hdrmerge/. -DALGLIB_ROOT=~/programs/alglib/cpp  -DCMAKE_CXX_FLAGS="-std=c++11 -Wno-deprecated-declarations -Wno-unused-result -O3 -pipe" -DCMAKE_C_FLAGS="-O3 -pipe"  -DCMAKE_INSTALL_BINDIR:STRING="~/programs/hdrmerge" -DCMAKE_BUILD_TYPE=Release -DALGLIB_INCLUDES=~/programs/alglib/cpp -DALGLIB_LIBRARIES=~/programs/code-hdrmerge/build
 RUN make && make install
 
