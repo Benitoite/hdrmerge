@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 7ba1836..4bbff9d 100644
+index 7ba1836..97da3c9 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -12,7 +12,7 @@ if(WIN32)
@@ -11,6 +11,15 @@ index 7ba1836..4bbff9d 100644
      if(NOT(ALGLIB_ROOT))
          message(FATAL_ERROR "Passage of ALGLIB_ROOT to cmake failed. Download alglib and define its root directory in ALGLIB_ROOT")
      else()
+@@ -27,7 +27,7 @@ set(PLATFORM "")
+ set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${PROJECT_SOURCE_DIR}/cmake")
+ 
+ # Find includes in corresponding build directories
+-set(CMAKE_INCLUDE_CURRENT_DIR ON)
++set(CMAKE_INCLUDE_CURRENT_DIR OFF)
+ 
+ # Instruct CMake to run moc automatically when needed.
+ set(CMAKE_AUTOMOC ON)
 @@ -51,7 +51,7 @@ find_package(OpenMP)
  if(WIN32)
      set(ALGLIB_INCLUDES ${ALGLIB_ROOT}/src)
