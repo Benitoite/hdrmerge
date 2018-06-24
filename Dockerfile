@@ -4,7 +4,7 @@ FROM alpine:latest
 
 RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash patch
 
-#  Get alglib sourcedode
+#  Get alglib sourcecode
 
 RUN mkdir ~/programs && cd ~/programs && mkdir alglib && wget -O alglib.zip http://www.alglib.net/translator/re/alglib-3.14.0.cpp.gpl.zip && unzip alglib.zip -d ./alglib
 
