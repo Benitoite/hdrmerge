@@ -2,7 +2,7 @@ FROM alpine:latest
 
 #  Add dependencies
 
-RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash patch
+RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash patch dbus
 
 #  Get alglib sourcecode
 
