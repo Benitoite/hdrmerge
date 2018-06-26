@@ -1,8 +1,8 @@
-FROM alpine:latest
+FROM alpine:edge
 
 #  Add dependencies
 
-RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash patch dbus mesa-dri-swrast mesa mesa-gl xorg-server
+RUN apk add --no-cache build-base cmake git boost-dev exiv2-dev expat-dev libraw-dev qt5-qtbase-dev zlib-dev unzip wget bash patch dbus mesa-dri-swrast mesa mesa-gl xorg-server qt5-qtx11extras
 
 #  Get alglib sourcecode
 
