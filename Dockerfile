@@ -24,4 +24,5 @@ RUN cd ~/programs/code-hdrmerge/build && make install
 
 #   set entrypoint cmd
 
+LABEL maintainer="kd6kxr@gmail.com"
 CMD echo "This is a test..." && ~/programs/hdrmerge/hdrmerge && echo "...THATS ALL FOLKS!!!"
