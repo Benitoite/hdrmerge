@@ -2,7 +2,8 @@ FROM ubuntu:latest
 
 #  Add dependencies
 
-RUN apt-get update && yes|apt-get install build-essential cmake git libexiv2-dev expat libraw-dev qt5-default unzip wget bash patch dbus xorg mesa-common-dev mesa-utils zlib1g-dev
+RUN apt-get update && apt-get install apt-utils -y
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install build-essential cmake git libexiv2-dev expat libraw-dev qt5-default unzip wget bash patch dbus xorg mesa-common-dev mesa-utils zlib1g-dev -y
 
 #  Clone GitHub project code
 
