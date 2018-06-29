@@ -6,10 +6,12 @@ RUN [ "cross-build-start" ]
 
 RUN apt-get update && apt-get install apt-utils -y
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends build-essential cmake git libexiv2-dev expat libraw-dev qt5-default unzip wget bash patch dbus xorg mesa-common-dev mesa-utils zlib1g-dev libalglib-dev -y
+RUN mkdir ~/programs && cd ~/programs && git clone https://gitlab.kitware.com/cmake/cmake.git && cd cmake && git checkout 3.11.4 && mkdir ~/programs/cmake/build && cd ~/programs/cmake/build && cmake .. && make && make install
+
 
 #  Clone GitHub project code
 
-RUN mkdir ~/programs && cd ~/programs && git clone https://github.com/jcelaya/hdrmerge.git  ~/programs/code-hdrmerge && mkdir ~/programs/code-hdrmerge/build && cd ~/programs/code-hdrmerge
+RUN cd ~/programs && git clone https://github.com/jcelaya/hdrmerge.git  ~/programs/code-hdrmerge && mkdir ~/programs/code-hdrmerge/build && cd ~/programs/code-hdrmerge
 
 #  compile
 
