@@ -1,4 +1,4 @@
-FROM arm32v7/debian:latest-slim
+FROM arm32v7/debian:testing-slim
 
 #  Add dependencies
 
