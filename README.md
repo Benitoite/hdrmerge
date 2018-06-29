@@ -1,3 +1,33 @@
+## Docker Commands
+
+### Mounts home directory to /hi and starts HDRMerge.
+
+* MAC:
+
+1. In first of two terminals:
+
+`open -a XQuartz`
+
+`socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"`
+
+2. In second terminal (*Replace `<your ip address>` with your ip address, for example 192.168.0.100):
+
+`docker run -e DISPLAY=<your ip address>:0 -e QT_XKB_CONFIG_ROOT=/usr/share/X11/xkb -v /tmp/X11-unix=/tmp/X11-unix -v ~:/hi:private kd6kxr/hdrmerge`
+
+* WIN:
+
+1. `"c:\Program Files (x86)\Xming\Xming.exe" :0 -ac -clipboard -multiwindow`
+
+2. `docker run -it -e DISPLAY=<your ip address>:0 -v ~:/hi:private kd6kxr/hdrmerge`
+
+*Replace `<your ip address>` with your ip address.
+
+* Linux:
+
+`docker run -it --rm -e DISPLAY=$DISPLAY  -v /tmp/.X11-unix:/tmp/.X11-unix -v ~:/hi:private kd6kxr/hdrmerge`
+
+<hr>
+
 # HDRMerge
 
 HDRMerge combines two or more raw images into a single raw with an extended dynamic range. It can import any raw image supported by LibRaw, and outputs a DNG 1.4 image with floating point data. The output raw is built from the less noisy pixels of the input, so that shadows maintain as much detail as possible. This tool also offers a GUI to remove ghosts from the resulting image.
