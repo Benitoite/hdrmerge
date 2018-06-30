@@ -4,8 +4,6 @@ RUN [ "cross-build-start" ]
 
 #  compile
 
-RUN apt-get install curl
-RUN cd ~/programs/code-hdrmerge && curl -o CMakeLists.txt https://raw.githubusercontent.com/Benitoite/hdrmerge/arm32v7/CMakeLists.txt
 RUN cd ~/programs/code-hdrmerge/build && cmake /root/programs/code-hdrmerge -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON  -DCMAKE_CXX_FLAGS="-std=c++11 -Wno-deprecated-declarations -Wno-unused-result -O3 -pipe" -DCMAKE_C_FLAGS="-O3 -pipe"  -DCMAKE_INSTALL_BINDIR:STRING="~/programs/hdrmerge" -DCMAKE_BUILD_TYPE=Release
 RUN cd ~/programs/code-hdrmerge/build && make install
 
