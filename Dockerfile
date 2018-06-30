@@ -1,4 +1,4 @@
-FROM kd6kxr/hdrmerge-deps2:arm32v7-deps2
+FROM kd6kxr/hdrmerge-deps2
 
 RUN [ "cross-build-start" ]
 
