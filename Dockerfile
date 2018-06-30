@@ -12,4 +12,5 @@ RUN [ "cross-build-end" ]
 #   set entrypoint cmd
 
 LABEL maintainer="kd6kxr@gmail.com"
+ENTRYPOINT /usr/bin/entry.sh
 CMD echo "This is a test..." && ~/programs/hdrmerge/hdrmerge && echo "...THATS ALL FOLKS!!!"
