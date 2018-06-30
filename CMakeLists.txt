@@ -35,7 +35,7 @@ set(CMAKE_AUTOMOC ON)
 # Generate resources automatically
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 5.5 REQUIRED Core Widgets)
+find_package(Qt5 5.3 REQUIRED Core Widgets)
 
 #include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
