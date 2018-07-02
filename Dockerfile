@@ -1,4 +1,4 @@
-FROM resin/raspberrypi3-debian:buster
+FROM resin/raspberrypi3-debian:sid
 
 RUN [ "cross-build-start" ]
 
