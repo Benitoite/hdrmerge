@@ -1,4 +1,4 @@
-FROM kd6kxr/hdrmerge-64deps2
+FROM kd6kxr/hdrmerge-64deps2:aarch64-deps2
 
 RUN [ "cross-build-start" ]
 
