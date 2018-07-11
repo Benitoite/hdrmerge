@@ -1,4 +1,4 @@
-FROM resin/armv7hf-debian:sid
+FROM resin/aarch64-debian:sid
 
 RUN [ "cross-build-start" ]
 
