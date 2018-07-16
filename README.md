@@ -1,3 +1,22 @@
+# Docker commands / raspberry pi 64-bit
+
+## prereqs
+
+* 64-bit OS
+* Xwindows (X11)
+* For example, [https://github.com/sakaki-/gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit)
+
+## create 2GB swap file and activate it
+
+    dd if=/dev/zero of=/swap_1 bs=1024 count=2048000
+    mkswap /swap_1
+    swapon /swap_1
+
+## mount home directory to /hi and launch HDRMerge
+
+    xhost +SI:localuser:$(id -un)
+    docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --user $(id -u):$(id -g) -v ~:/hi:private   kd6kxr/hdrmerge-aarch64
+
 # HDRMerge
 
 HDRMerge combines two or more raw images into a single raw with an extended dynamic range. It can import any raw image supported by LibRaw, and outputs a DNG 1.4 image with floating point data. The output raw is built from the less noisy pixels of the input, so that shadows maintain as much detail as possible. This tool also offers a GUI to remove ghosts from the resulting image.
