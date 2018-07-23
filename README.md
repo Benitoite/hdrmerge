@@ -28,7 +28,7 @@
 
 ============
 
-![logo](https://upload.wikimedia.org/wikipedia/commons/c/c0/Luminance_HDR_Logo_2012.png)
+![logo](https://raw.githubusercontent.com/Benitoite/hdrmerge/gh-pages/images/logo.png)
 
 
 # HDRMerge
