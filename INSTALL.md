@@ -145,10 +145,10 @@ https://brew.sh
 ``` bash
 brew install cmake boost exiv2 libraw qt libomp
 ```
-3. alglib is not available on brew (for now) so [Download ALGLIB 3.15.0 for C++](http://www.alglib.net/download.php) and extract to ~/alglib manually or:
+3. alglib is not available on brew (for now) so [Download ALGLIB 3.16.0 for C++](http://www.alglib.net/download.php) and extract to ~/alglib manually or:
 ``` bash
 mkdir ~/alglib && cd ~/alglib
-curl http://www.alglib.net/translator/re/alglib-3.15.0.cpp.gpl.zip --output ~/alglib/ALGLIB.zip
+curl https://www.alglib.net/translator/re/alglib-3.16.0.cpp.gpl.zip --output ~/alglib/ALGLIB.zip
 unzip ~/alglib/ALGLIB.zip -d ~/alglib && rm ~/alglib/ALGLIB.zip
 ```
 
